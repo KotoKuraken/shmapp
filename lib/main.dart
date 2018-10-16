@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-final GlobalKey<ScaffoldState> _scaffoldKey = new
-GlobalKey<ScaffoldState>();
 
 MyHomePage homePage = new MyHomePage(title: 'Home');
 MyMapPage mapPage = new MyMapPage(title: 'Map');
@@ -14,8 +12,9 @@ CreateNav(BuildContext context, bool isHome){
     children: <Widget>[
       new ListTile(
         leading: new Icon(Icons.directions_walk),
-        title: new Text('Navigation'),
+        title: new Text('Home'),
         onTap: (){
+          Navigator.pop(context);
           if(!isHome){
             Navigator.pop(context);
           }
@@ -23,8 +22,9 @@ CreateNav(BuildContext context, bool isHome){
       ),
       new ListTile(
           leading: new Icon(Icons.map),
-          title: new Text('Home Map'),
+          title: new Text('Map'),
           onTap: (){
+            Navigator.pop(context);
             if(!isHome){
               Navigator.pop(context);
             }
@@ -38,6 +38,7 @@ CreateNav(BuildContext context, bool isHome){
           leading: new Icon(Icons.info),
           title: new Text('Info'),
           onTap: (){
+            Navigator.pop(context);
             if(!isHome){
               Navigator.pop(context);
             }
@@ -51,6 +52,7 @@ CreateNav(BuildContext context, bool isHome){
         leading: new Icon(Icons.person),
         title: new Text('Faculty Login'),
         onTap: (){
+          Navigator.pop(context);
           if(!isHome){
             Navigator.pop(context);
           }
@@ -145,13 +147,27 @@ class _MyHomePageState extends State<MyHomePage> {
             new Text(
               'This is the Shmapp Home Page',
             ),
+            new Spacer(flex: 1),
+            new Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                ButtonTheme(
+                  minWidth: 50.0,
+                  height: 22.0,
+                  child: new RaisedButton(
+                    child: new Text("Change Page"),
+                    onPressed: () {
+                      showModalBottomSheet<void>(context: context, builder: (BuildContext context){
+                        return CreateNav(context, true);
+                      });
+                    }
+                  )
+                )
+              ],
+            )
           ],
         ),
       ), // This trailing comma makes auto-formatting nicer for build method
-      bottomSheet: new BottomSheet(onClosing: () => null, builder: (BuildContext context) {
-
-        return CreateNav(context, true);
-      }),
 
     );
   }
@@ -210,16 +226,28 @@ class _MyMapPageState extends State<MyMapPage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new Text(
-              'This is the Shmapp Map Page',
-            ),
+            new Image.asset("images/First.jpg"),
+            new Spacer(flex: 1),
+            new Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                ButtonTheme(
+                    minWidth: 50.0,
+                    height: 22.0,
+                    child: new RaisedButton(
+                        child: new Text("Change Page"),
+                        onPressed: () {
+                          showModalBottomSheet<void>(context: context, builder: (BuildContext context){
+                            return CreateNav(context, false);
+                          });
+                        }
+                    )
+                )
+              ],
+            )
           ],
         ),
       ), // This trailing comma makes auto-formatting nicer for build method
-      bottomSheet: new BottomSheet(onClosing: () => null, builder: (BuildContext context) {
-
-        return CreateNav(context, false);
-      }),
 
     );
   }
@@ -281,13 +309,28 @@ class _MyInfoPageState extends State<MyInfoPage> {
             new Text(
               'This is the Shmapp Info Page',
             ),
+            new Spacer(flex: 1),
+            new Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                ButtonTheme(
+                    minWidth: 50.0,
+                    height: 22.0,
+                    child: new RaisedButton(
+                        child: new Text("Change Page"),
+                        onPressed: () {
+                          showModalBottomSheet<void>(context: context, builder: (BuildContext context){
+                            return CreateNav(context, false);
+                          });
+                        }
+                    )
+                )
+              ],
+            )
           ],
         ),
       ), // This trailing comma makes auto-formatting nicer for build method
-      bottomSheet: new BottomSheet(onClosing: () => null, builder: (BuildContext context) {
 
-        return CreateNav(context, false);
-      }),
 
     );
   }
@@ -349,13 +392,27 @@ class _MyLoginPageState extends State<MyLoginPage> {
             new Text(
               'This is the Shmapp Login Page',
             ),
+            new Spacer(flex: 1),
+            new Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                ButtonTheme(
+                    minWidth: 50.0,
+                    height: 22.0,
+                    child: new RaisedButton(
+                        child: new Text("Change Page"),
+                        onPressed: () {
+                          showModalBottomSheet<void>(context: context, builder: (BuildContext context){
+                            return CreateNav(context, false);
+                          });
+                        }
+                    )
+                )
+              ],
+            )
           ],
         ),
       ), // This trailing comma makes auto-formatting nicer for build method
-      bottomSheet: new BottomSheet(onClosing: () => null, builder: (BuildContext context) {
-
-        return CreateNav(context, false);
-      }),
 
     );
   }
