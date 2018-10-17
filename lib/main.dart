@@ -250,7 +250,7 @@ class _MyMapPageState extends State<MyMapPage> {
             new Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  new Spacer(flex: 1),
+                  Spacer(flex: 1),
                   new Container(
                     width: 88.0,
                     child: new TextField(
@@ -267,7 +267,7 @@ class _MyMapPageState extends State<MyMapPage> {
                         )
                     ),
                   ),
-                  new Spacer(flex:2),
+                  Spacer(flex:2),
                   new Container(
                     width: 88.0,
                     child: new TextField(
@@ -298,7 +298,7 @@ class _MyMapPageState extends State<MyMapPage> {
 
                 ]
             ),
-            new Spacer(flex: 1),
+            Spacer(flex: 1),
             new Container(
               width: 375.0,
               height: 100.0,
@@ -307,20 +307,19 @@ class _MyMapPageState extends State<MyMapPage> {
               ),
               child: new Text("Directions will be displayed here. rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr")
             ),
-            new Spacer(flex: 1),
+            Spacer(flex: 1),
             new Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Spacer(flex:1),
-                ButtonTheme(
+//                Spacer(flex:1),
+/*                ButtonTheme(
                   minWidth: 50.0,
                   height: 22.0,
                   child: new RaisedButton(
                       child: new Text("Help"),
                       onPressed: null
                   ),
-                ),
-                Spacer(flex:10),
+                ),*/
                 ButtonTheme(
                     minWidth: 70.0,
                     height: 40.0,
@@ -339,20 +338,14 @@ class _MyMapPageState extends State<MyMapPage> {
                         shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(30.0))
                     )
-                )
-                        }
-                    ),
                 ),
-                Spacer(flex:1)
-              ],
-            )
-          ],
-        ),
-      ), // This trailing comma makes auto-formatting nicer for build method
-
-    );
+//                Spacer(flex:1)
+      ]),
+                ]),
+            ),
+        );
+  }// This trailing comma makes auto-formatting nicer for build method
   }
-}
 
 class MyInfoPage extends StatefulWidget {
   MyInfoPage({Key key, this.title}) : super(key: key);
