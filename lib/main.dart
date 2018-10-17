@@ -193,6 +193,18 @@ class MyMapPage extends StatefulWidget {
 
 class _MyMapPageState extends State<MyMapPage> {
 
+  final startLoc = TextEditingController();
+  final endLoc = TextEditingController();
+
+  String start = "";
+  String end = "";
+
+  @override
+  void dispose(){
+    startLoc.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -226,11 +238,82 @@ class _MyMapPageState extends State<MyMapPage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new Image.asset("images/First.jpg"),
+            new Image.asset("images/First.jpg",
+            height: 400.0),
+            new Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  new Spacer(flex: 1),
+                  new Container(
+                    width: 88.0,
+                    child: new TextField(
+                        controller: startLoc,
+                        decoration: new InputDecoration(
+                          border: OutlineInputBorder(),
+                          contentPadding: EdgeInsets.symmetric(vertical: 10.0),
+                          hintText: "Start"
+                        ),
+                        style: new TextStyle(
+                          fontSize: 14.0,
+                          height: 1.0,
+                          color: Colors.black,
+                        )
+                    ),
+                  ),
+                  new Spacer(flex:2),
+                  new Container(
+                    width: 88.0,
+                    child: new TextField(
+                        controller: startLoc,
+                        decoration: new InputDecoration(
+                            border: OutlineInputBorder(),
+                            contentPadding: EdgeInsets.symmetric(vertical: 10.0),
+                            hintText: "End"
+                        ),
+                        style: new TextStyle(
+                          fontSize: 14.0,
+                          height: 1.0,
+                          color: Colors.black,
+                        )
+                    ),
+                  ),
+                  Spacer(flex: 2),
+                  new RaisedButton(
+                      child: new Text("Get Directions"),
+                      onPressed: () {
+                        start = startLoc.text;
+                        end = endLoc.text;
+                        new AlertDialog(
+                          content: Text(start + "/n" + end)
+                        );
+                      }),
+                  Spacer(flex:1)
+
+                ]
+            ),
+            new Spacer(flex: 1),
+            new Container(
+              width: 375.0,
+              height: 100.0,
+              decoration: new BoxDecoration(
+                border: new Border.all(color: Colors.black)
+              ),
+              child: new Text("Directions will be displayed here. rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr")
+            ),
             new Spacer(flex: 1),
             new Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
+                Spacer(flex:1),
+                ButtonTheme(
+                  minWidth: 50.0,
+                  height: 22.0,
+                  child: new RaisedButton(
+                      child: new Text("Help"),
+                      onPressed: null
+                  ),
+                ),
+                Spacer(flex:10),
                 ButtonTheme(
                     minWidth: 50.0,
                     height: 22.0,
@@ -241,8 +324,9 @@ class _MyMapPageState extends State<MyMapPage> {
                             return CreateNav(context, false);
                           });
                         }
-                    )
-                )
+                    ),
+                ),
+                Spacer(flex:1)
               ],
             )
           ],
