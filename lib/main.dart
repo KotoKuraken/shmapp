@@ -149,18 +149,25 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             new Spacer(flex: 1),
             new Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 ButtonTheme(
-                  minWidth: 50.0,
-                  height: 22.0,
+                  minWidth: 70.0,
+                  height: 40.0,
                   child: new RaisedButton(
-                    child: new Text("Change Page"),
+                    child: new Text("Change Page",
+                    style: new TextStyle(
+                      fontSize: 22.0,
+                      ),
+                    ),
+                    color: Colors.grey[400],
                     onPressed: () {
                       showModalBottomSheet<void>(context: context, builder: (BuildContext context){
                         return CreateNav(context, true);
                       });
-                    }
+                    },
+                    shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(30.0))
                   )
                 )
               ],
@@ -302,7 +309,7 @@ class _MyMapPageState extends State<MyMapPage> {
             ),
             new Spacer(flex: 1),
             new Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Spacer(flex:1),
                 ButtonTheme(
@@ -315,14 +322,24 @@ class _MyMapPageState extends State<MyMapPage> {
                 ),
                 Spacer(flex:10),
                 ButtonTheme(
-                    minWidth: 50.0,
-                    height: 22.0,
+                    minWidth: 70.0,
+                    height: 40.0,
                     child: new RaisedButton(
-                        child: new Text("Change Page"),
+                        child: new Text("Change Page",
+                          style: new TextStyle(
+                            fontSize: 22.0,
+                          ),
+                        ),
+                        color: Colors.grey[400],
                         onPressed: () {
                           showModalBottomSheet<void>(context: context, builder: (BuildContext context){
                             return CreateNav(context, false);
                           });
+                        },
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(30.0))
+                    )
+                )
                         }
                     ),
                 ),
@@ -395,18 +412,25 @@ class _MyInfoPageState extends State<MyInfoPage> {
             ),
             new Spacer(flex: 1),
             new Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 ButtonTheme(
-                    minWidth: 50.0,
-                    height: 22.0,
+                    minWidth: 70.0,
+                    height: 40.0,
                     child: new RaisedButton(
-                        child: new Text("Change Page"),
+                        child: new Text("Change Page",
+                          style: new TextStyle(
+                            fontSize: 22.0,
+                          ),
+                        ),
+                        color: Colors.grey[400],
                         onPressed: () {
                           showModalBottomSheet<void>(context: context, builder: (BuildContext context){
                             return CreateNav(context, false);
                           });
-                        }
+                        },
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(30.0))
                     )
                 )
               ],
@@ -478,18 +502,25 @@ class _MyLoginPageState extends State<MyLoginPage> {
             ),
             new Spacer(flex: 1),
             new Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 ButtonTheme(
-                    minWidth: 50.0,
-                    height: 22.0,
+                    minWidth: 70.0,
+                    height: 40.0,
                     child: new RaisedButton(
-                        child: new Text("Change Page"),
+                        child: new Text("Change Page",
+                          style: new TextStyle(
+                            fontSize: 22.0,
+                          ),
+                        ),
+                        color: Colors.grey[400],
                         onPressed: () {
                           showModalBottomSheet<void>(context: context, builder: (BuildContext context){
                             return CreateNav(context, false);
                           });
-                        }
+                        },
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(30.0))
                     )
                 )
               ],
