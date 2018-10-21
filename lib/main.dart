@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:photo_view/photo_view.dart';
 
 
 MyHomePage homePage = new MyHomePage(title: 'Home');
 MyMapPage mapPage = new MyMapPage(title: 'Map');
 MyInfoPage infoPage = new MyInfoPage(title: 'Info');
 MyLoginPage loginPage = new MyLoginPage(title: 'Login');
+AssetImage map = new AssetImage("images/First.jpg");
 
 CreateNav(BuildContext context, bool isHome){
   return new Column(
@@ -203,12 +205,13 @@ class _MyMapPageState extends State<MyMapPage> {
   final startLoc = TextEditingController();
   final endLoc = TextEditingController();
 
-  String start = "";
+  String yourLoc = "";
   String end = "";
 
   @override
   void dispose(){
     startLoc.dispose();
+    endLoc.dispose();
     super.dispose();
   }
 
@@ -245,7 +248,15 @@ class _MyMapPageState extends State<MyMapPage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new Image.asset("images/First.jpg",
+            Container(
+            child: PhotoViewGallery(
+                pageOptions: <PhotoViewGalleryPageOptions>[
+                  PhotoViewGalleryPageOptions(
+                      imageProvider: map,
+                      heroTag: "tag1"
+                  )
+                ]
+            ),
             height: 400.0),
             new Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -271,7 +282,7 @@ class _MyMapPageState extends State<MyMapPage> {
                   new Container(
                     width: 88.0,
                     child: new TextField(
-                        controller: startLoc,
+                        controller: endLoc,
                         decoration: new InputDecoration(
                             border: OutlineInputBorder(),
                             contentPadding: EdgeInsets.symmetric(vertical: 10.0),
@@ -288,24 +299,52 @@ class _MyMapPageState extends State<MyMapPage> {
                   new RaisedButton(
                       child: new Text("Get Directions"),
                       onPressed: () {
-                        start = startLoc.text;
+                        yourLoc = startLoc.text;
                         end = endLoc.text;
-                        new AlertDialog(
-                          content: Text(start + "/n" + end)
-                        );
+                        switch(yourLoc){
+                          case "first":
+                              setState(() {map = AssetImage("images/First.jpg");});
+                              break;
+
+                          case "second":
+                            setState(() {map = AssetImage("images/Second.jpg");});
+                            break;
+
+                          case "third":
+                            setState(() {map = AssetImage("images/Third.jpg");});
+                            break;
+
+                          case "fourth":
+                            setState(() {map = AssetImage("images/Fourth.jpg");});
+                            break;
+
+                          default:
+                            setState(() {map = AssetImage("images/First.jpg");});
+                        }
                       }),
                   Spacer(flex:1)
 
                 ]
             ),
             Spacer(flex: 1),
-            new Container(
-              width: 375.0,
+            new Row(
+            children: <Widget>[
+              Spacer(flex: 1),
+              new Container(
+              width: 275.0,
               height: 100.0,
               decoration: new BoxDecoration(
                 border: new Border.all(color: Colors.black)
               ),
               child: new Text("Directions will be displayed here. rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr")
+            ),
+            Spacer(flex: 1),
+            new RaisedButton(
+                child: new Text("Next Step"),
+                onPressed: null
+            ),
+              Spacer(flex: 1)
+            ]
             ),
             Spacer(flex: 1),
             new Row(
