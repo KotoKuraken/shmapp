@@ -495,6 +495,10 @@ class MyLoginPage extends StatefulWidget {
 }
 
 class _MyLoginPageState extends State<MyLoginPage> {
+  final searchInput = TextEditingController();
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -529,8 +533,42 @@ class _MyLoginPageState extends State<MyLoginPage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new Text(
-              'This is the Shmapp Login Page',
+            new Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Spacer(flex: 1),
+                  new Container(
+
+
+                    height: 30.0,
+                    width: 300.0,
+                    child: new TextField(
+                        controller: searchInput,
+                        decoration: new InputDecoration(
+
+
+                            prefixIcon: Padding(
+                              padding: EdgeInsets.all(0.0),
+                              child: Icon(
+                                Icons.search,
+                                color: Colors.black,
+                              ), // icon is 48px widget.
+                            ),
+
+                            hintText: "Search: Name, Email, Title, Department..."
+                        ),
+                        style: new TextStyle(
+                          fontSize: 14.0,
+                          height: 1.0,
+                          color: Colors.black,
+                        )
+                    ),
+                  ),
+                  Spacer(flex:2),
+
+
+
+                ]
             ),
             new Spacer(flex: 1),
             new Row(
