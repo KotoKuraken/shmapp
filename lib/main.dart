@@ -6,7 +6,7 @@ MyHomePage homePage = new MyHomePage(title: 'Home');
 MyMapPage mapPage = new MyMapPage(title: 'Map');
 MyInfoPage infoPage = new MyInfoPage(title: 'Info');
 MyLoginPage loginPage = new MyLoginPage(title: 'Faculty');
-AssetImage map = new AssetImage("images/First.jpg");
+AssetImage map = new AssetImage("images/First.png");
 
 class Section{
   var movementConnects;
@@ -647,10 +647,10 @@ class Direct{
 
     //Curved hallway between offices above
     section3_Sp3.movementConnects.add(section3_Sp1);
-    section3_Sp3.movementDirections.add("");
+    section3_Sp3.movementDirections.add("From facing the curved wall with many rooms on it, head down the hallway to the right and proceed into the area with the desks.");
 
     section3_Sp3.movementConnects.add(section3_Sp2);
-    section3_Sp3.movementDirections.add("");
+    section3_Sp3.movementDirections.add("From facing the curved wall with many rooms on it, head down the hallway to the left and proceed into the area with the desks.");
 
     //Fourth part of third floor hub
     section3_HubD.movementConnects.add(section3_HubB);
@@ -806,10 +806,10 @@ class Direct{
 
     //Curved hallway between above offices
     section4_Sp3.movementConnects.add(section4_Sp1);
-    section4_Sp3.movementDirections.add("");
+    section4_Sp3.movementDirections.add("From facing the curved wall with many rooms on it, head down the hallway to the right and proceed into the area with the desks.");
 
-    section4_Sp3.movementConnects.add(section4_Sp1);
-    section4_Sp3.movementDirections.add("");
+    section4_Sp3.movementConnects.add(section4_Sp3);
+    section4_Sp3.movementDirections.add("From facing the curved wall with many rooms on it, head down the hallway to the left and proceed into the area with the desks.");
 
     //Fourth part of 4th floor hub
     section4_HubD.movementConnects.add(section4_HubB);
@@ -988,11 +988,16 @@ class Direct{
 
       "2219" : section2_Sp1,
       "2217" : section2_Sp1,
+      "2211": section2_Sp1,
+      "2213": section2_Sp1,
       "2215": section2_Sp1,
+      "2206": section2_Sp1,
+      "2208": section2_Sp1,
 
       "2201" : section2_3,
       "2203" : section2_3,
       "2209" : section2_3,
+      "2116" : section2_3,
 
       "2114" : section2_Hub,
       "2117" : section2_Hub,
