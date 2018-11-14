@@ -1427,6 +1427,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+var _values = ['1st Floor', '2nd Floor', '3rd Floor', '4th Floor'];
+var _selectedItem = '2nd Floor';
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -1460,8 +1463,41 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new Text(
-              'This is the Shmapp Home Page',
+            Container(
+                child: PhotoViewGallery(
+                    pageOptions: <PhotoViewGalleryPageOptions>[
+                      PhotoViewGalleryPageOptions(
+                          imageProvider: AssetImage("images/First.jpg"),
+                          heroTag: "1st Floor",
+                      ),
+                      PhotoViewGalleryPageOptions(
+                          imageProvider: AssetImage("images/Second.jpg"),
+                          heroTag: "2nd Floor",
+                      ),
+                      PhotoViewGalleryPageOptions(
+                          imageProvider: AssetImage("images/Third.jpg"),
+                          heroTag: "3rd Floor",
+                      ),
+                      PhotoViewGalleryPageOptions(
+                          imageProvider: AssetImage("images/Fourth.jpg"),
+                          heroTag: "4th Floor",
+                      ),
+                    ]
+                ),
+                height: 400.0),
+            new DropdownButton<String>(
+              items: _values.map((String dropDownStringItem){
+                return new DropdownMenuItem<String>(
+                  value: dropDownStringItem,
+                  child: Text(dropDownStringItem),
+                );
+              }).toList(),
+              onChanged: (String newValue){
+                setState(() {
+                  this._selectedItem = newValue;
+                });
+              },
+              value: _selectedItem,
             ),
             new Spacer(flex: 1),
             new Row(
