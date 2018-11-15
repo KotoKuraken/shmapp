@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
+import 'dart:async';
+import 'package:sqljocky5/sqljocky.dart' as sqlJocky;
 
 
 MyHomePage homePage = new MyHomePage(title: 'Home');
@@ -1123,6 +1125,36 @@ class MyLoginPage extends StatefulWidget {
 
 class _MyLoginPageState extends State<MyLoginPage> {
   final searchInput = TextEditingController();
+  openConnection(String input) async{
+    var s = sqlJocky.ConnectionSettings(
+      user: "root",
+      password: "BooBooBla2",
+      host: "10.0.2.2",
+      port: 3306,
+      db: "PeanutRoom",
+    );
+    // create a connection
+    print("Opening connection ...");
+    var conn = await sqlJocky.MySqlConnection.connect(s);
+    print("Opened connection!");
+    List<String> myList = await readData(conn, input);
+    //await conn.close();
+    return myList;
+  }
+  Future<List<String>> readData(sqlJocky.MySqlConnection conn, String input) async {
+    sqlJocky.Results result =
+    await conn.execute("SELECT name FROM employee WHERE name LIKE '%$input%';"
+
+    );
+    List<String> myList = new List();
+    for(int i = 0; i < result.length;i++){
+      myList.add(result.elementAt(i).first);
+    }
+    print(result);
+    print(myList);
+    return myList;
+
+  }
 
 
 
@@ -1192,6 +1224,14 @@ class _MyLoginPageState extends State<MyLoginPage> {
                     ),
                   ),
                   Spacer(flex:2),
+                  new RaisedButton(
+                  child: new Text("Go"),
+                  onPressed: () {
+                    String input = searchInput.text;
+                    List<String> myList = openConnection(input);
+                    print(myList);
+                  },
+                  )
 
 
 
