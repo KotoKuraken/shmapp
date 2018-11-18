@@ -1380,7 +1380,7 @@ CreateNav(BuildContext context, bool isHome){
 }
 
 
-void main() => runApp(new MyApp());
+void main() async => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -1796,6 +1796,7 @@ class _MyMapPageState extends State<MyMapPage> {
       ]),
                 ]),
             ),
+
         );
   }// This trailing comma makes auto-formatting nicer for build method
   }
@@ -1910,7 +1911,39 @@ class MyLoginPage extends StatefulWidget {
 
 class _MyLoginPageState extends State<MyLoginPage> {
   final searchInput = TextEditingController();
-  openConnection(String input) async{
+  List<String> myList = new List();
+  List<String> names = new List();
+  Icon _searchIcon = new Icon(Icons.search);
+  String _searchText = "";
+  Widget _appBarTitle = new Text( 'Search Example' );
+
+  sqlJocky.MySqlConnection conn;
+
+
+  _MyLoginPageState(){
+    searchInput.addListener(() {
+      if (searchInput.text.isEmpty) {
+        setState(() {
+          _searchText = "";
+          myList = names;
+        });
+      } else {
+        setState(() {
+          _searchText = searchInput.text;
+        });
+      }
+    });
+
+  }
+  @override
+  void initState(){
+    this.openConnection();
+    super.initState();
+
+
+  }
+
+  openConnection() async{
     var s = sqlJocky.ConnectionSettings(
       user: "root",
       password: "BooBooBla2",
@@ -1920,26 +1953,80 @@ class _MyLoginPageState extends State<MyLoginPage> {
     );
     // create a connection
     print("Opening connection ...");
-    var conn = await sqlJocky.MySqlConnection.connect(s);
+    conn = await sqlJocky.MySqlConnection.connect(s);
     print("Opened connection!");
-    List<String> myList = await readData(conn, input);
+    readData();
     //await conn.close();
-    return myList;
+
+
   }
-  Future<List<String>> readData(sqlJocky.MySqlConnection conn, String input) async {
+  void readData() async {
     sqlJocky.Results result =
-    await conn.execute("SELECT name FROM employee WHERE name LIKE '%$input%';"
+    await conn.execute("SELECT name FROM employee;"
 
     );
-    List<String> myList = new List();
+    List<String> tempList = new List();
     for(int i = 0; i < result.length;i++){
-      myList.add(result.elementAt(i).first);
+      tempList.add(result.elementAt(i).first);
     }
-    print(result);
-    print(myList);
-    return myList;
+    setState((){
+      names = tempList;
+      names.sort();
+      myList = names;
+      print(names);
+    });
+
 
   }
+  void outputData(String input)async{
+    sqlJocky.Results result =
+    await conn.execute("SELECT * FROM employee WHERE name = '$input';"
+
+    );
+    print(result);
+  }
+  Widget _buildList() {
+    if (!(searchInput.text.isEmpty)) {
+      List<String> tempList = new List();
+      for (int i = 0; i < myList.length; i++) {
+        if (myList[i].toLowerCase().contains(searchInput.text.toLowerCase())) {
+          tempList.add(myList[i]);
+        }
+      }
+      myList = tempList;
+    }
+    return ListView.builder(
+      itemCount: names == null ? 0 : myList.length,
+      itemBuilder: (BuildContext context, int index) {
+        return new ListTile(
+          title: Text(myList[index]),
+          onTap: () => outputData(myList[index]),
+        );
+      },
+    );
+  }
+  void _searchPressed() {
+    setState(() {
+      if (this._searchIcon.icon == Icons.search) {
+        this._searchIcon = new Icon(Icons.close);
+        this._appBarTitle = new TextField(
+          controller: searchInput,
+          decoration: new InputDecoration(
+              prefixIcon: new Icon(Icons.search),
+              hintText: 'Search...'
+          ),
+        );
+      } else {
+        this._searchIcon = new Icon(Icons.search);
+        this._appBarTitle = new Text( 'Search Example' );
+        myList = names;
+        searchInput.clear();
+      }
+    });
+  }
+
+
+
 
 
 
@@ -1961,6 +2048,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
       body: new Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
+
         child: new Column(
           // Column is also layout widget. It takes a list of children and
           // arranges them vertically. By default, it sizes itself to fit its
@@ -1978,24 +2066,29 @@ class _MyLoginPageState extends State<MyLoginPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             new Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Spacer(flex: 1),
+
                   new Container(
 
 
                     height: 30.0,
                     width: 300.0,
-                    child: new TextField(
+
+                    child:
+                    new TextField(
+
                         controller: searchInput,
+
                         decoration: new InputDecoration(
 
 
                             prefixIcon: Padding(
                               padding: EdgeInsets.all(0.0),
-                              child: Icon(
-                                Icons.search,
-                                color: Colors.black,
+                              child: IconButton(
+                                icon: _searchIcon,
+                                onPressed: _searchPressed,
+
                               ), // icon is 48px widget.
                             ),
 
@@ -2008,22 +2101,17 @@ class _MyLoginPageState extends State<MyLoginPage> {
                         )
                     ),
                   ),
-                  Spacer(flex:2),
-                  new RaisedButton(
-                  child: new Text("Go"),
-                  onPressed: () {
-                    String input = searchInput.text;
-                    List<String> myList = openConnection(input);
-                    print(myList);
-                  },
-                  )
-
-
 
                 ]
             ),
+            new Expanded(
+
+                child: _buildList(),
+
+
+            ),
             new Spacer(flex: 1),
-            new Row(
+            new Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 ButtonTheme(
@@ -2050,7 +2138,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
           ],
         ),
       ), // This trailing comma makes auto-formatting nicer for build method
-
+      resizeToAvoidBottomPadding: false,
     );
   }
 }
