@@ -139,6 +139,8 @@ class Direct{
 
   var directions;
 
+  var vertDirections;
+
   bool found;
 
   String vertS = "stairs";
@@ -155,6 +157,8 @@ class Direct{
     this.toCheck = new List();
     this.prevs = new List();
     this.directions = new List();
+    this.vertDirections = new List();
+    this.found = false;
   }
 
   void CreateSections(){
@@ -1239,14 +1243,99 @@ class Direct{
     }
   }
 
+  Section FindVertical(Section start, Section end, bool accessIssues){
+    if(start.floor == end.floor){
+      return(start);
+    }
+    else{
+      return(FindVerticalPath(start, null, end.floor, accessIssues));
+    }
+  }
+
+  Section FindVerticalPath(Section current, Section previous, int floorOfEnd, bool accessIssues){
+    checked.add(current);
+    if(this.found){
+      return(null);
+    }
+    Section toReturn;
+
+    //If you're the end, let everyone know that the end has been found, tell your predecessor that it is in the path, and add in directions to you
+    if(current.verticalConnects.length > 0){
+      for(int i = 0; i < current.verticalConnects.length; i++){
+        if(current.verticalConnects[i].floor == floorOfEnd && (current.verticalTypes[i] == vertS || current.verticalTypes[i] == vertE) && !accessIssues){
+          this.found = true;
+          this.vertDirections.add(current.verticalDirections[i]);
+          if(previous != null){
+            this.vertDirections.add(previous.movementDirections[previous.movementConnects.indexOf(current)]);
+            previous.partOfPath = true;
+          }
+          return(current.verticalConnects[i]);
+        }
+        if(current.verticalConnects[i].floor == floorOfEnd && (current.verticalTypes[i] == vertE || current.verticalTypes[i] == vertFE) && accessIssues){
+          this.found = true;
+          this.vertDirections.add(current.verticalDirections[i]);
+          if(previous != null){
+            this.vertDirections.add(previous.movementDirections[previous.movementConnects.indexOf(current)]);
+            previous.partOfPath = true;
+          }
+          return(current.verticalConnects[i]);
+        }
+      }
+    }
+    //If you're not the end, but the end is one of your special connections, add in your directions to the end, then proceed as if you are the end.
+
+
+    //For those that have not been checked and are not waiting to be checked, add your connected sections to that list of those that need to be checked
+    for(int i = 0; i < current.movementConnects.length; i++){
+      if(checked.contains(current.movementConnects[i])){
+        continue;
+      }
+      if(toCheck.contains(current.movementConnects[i])){
+        continue;
+      }
+      toCheck.add(current.movementConnects[i]);
+      //Mark yourself as the predecssor
+      prevs.add(current);
+    }
+
+    //Prepare the next one to check
+    Section next = toCheck[0];
+    toCheck.removeAt(0);
+
+    Section nextPrev = prevs[0];
+    prevs.removeAt(0);
+
+    toReturn = this.FindVerticalPath(next, nextPrev, floorOfEnd, accessIssues);
+
+    //Check if you are part of the path, and if so, add the directions to you to the path
+    if(current.partOfPath && previous != null){
+      vertDirections.add(previous.movementDirections[previous.movementConnects.indexOf(current)]);
+      previous.partOfPath = true;
+      current.partOfPath = false;
+    }
+
+    else if(current.partOfPath){
+      current.partOfPath = false;
+    }
+
+    return(toReturn);
+  }
+
   List FindPath(Section start, Section end, bool accessIssues){
 
+    start = FindVertical(start, end, accessIssues);
+    this.vertDirections = (this.vertDirections.reversed).toList();
+    this.checked = new List();
+    this.toCheck = new List();
+    this.prevs = new List();
+    this.found = false;
     CheckAdjacent(start, null, end);
-    var theDirections = (this.directions.reversed).toList();
+    var theDirections = [this.vertDirections, (this.directions.reversed).toList()].expand((x) => x).toList();
     this.checked = new List();
     this.toCheck = new List();
     this.prevs = new List();
     this.directions = new List();
+    this.vertDirections = new List();
     this.found = false;
 
     return theDirections;
@@ -1467,11 +1556,11 @@ var _selectedItem = '2nd Floor';
                 child: PhotoViewGallery(
                     pageOptions: <PhotoViewGalleryPageOptions>[
                       PhotoViewGalleryPageOptions(
-                          imageProvider: AssetImage("images/First.jpg"),
+                          imageProvider: AssetImage("images/First.png"),
                           heroTag: "1st Floor",
                       ),
                       PhotoViewGalleryPageOptions(
-                          imageProvider: AssetImage("images/Second.jpg"),
+                          imageProvider: AssetImage("images/Second.png"),
                           heroTag: "2nd Floor",
                       ),
                       PhotoViewGalleryPageOptions(
@@ -1561,10 +1650,64 @@ class _MyMapPageState extends State<MyMapPage> {
   int currentDirection = 0;
   var directions = new List();
   Text direct = new Text("Directions will be displayed here");
+  bool accessIssues = false;
+
+
   RaisedButton nextDirect = new RaisedButton(
   child: new Text("Next Step"),
   onPressed: null
   );
+
+  RaisedButton prevDirect = new RaisedButton(
+      child: new Text("Prev Step"),
+      onPressed: null
+  );
+
+  void nextActive(){
+    setState(() {
+      if(currentDirection == 0){
+        prevDirect = RaisedButton(
+            child: new Text("Prev Step"),
+            onPressed: () {prevActive();}
+        );
+      }
+      currentDirection++;
+      if(currentDirection == directions.length){
+        direct = Text("Your desired location will be in this area.");
+        nextDirect = RaisedButton(
+            child: new Text("Next Step"),
+            onPressed: null
+        );
+      }
+      else{
+        direct = Text(directions[currentDirection]);
+      }
+    });
+  }
+
+  void prevActive(){
+    setState(() {
+      if(currentDirection == directions.length){
+        nextDirect = RaisedButton(
+          child: new Text("Next Step"),
+          onPressed: () {nextActive();}
+        );
+      }
+      currentDirection--;
+      if(currentDirection == 0){
+        direct = Text(directions[currentDirection]);
+        prevDirect = RaisedButton(
+            child: new Text("Prev Step"),
+            onPressed: null
+        );
+      }
+      else{
+        direct = Text(directions[currentDirection]);
+      }
+    });
+  }
+
+
 
   @override
   void dispose(){
@@ -1615,43 +1758,46 @@ class _MyMapPageState extends State<MyMapPage> {
                   )
                 ]
             ),
-            height: 400.0),
+            height: 370.0),
             new Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Spacer(flex: 1),
-                  new Container(
-                    width: 88.0,
-                    child: new TextField(
-                        controller: startLoc,
-                        decoration: new InputDecoration(
-                          border: OutlineInputBorder(),
-                          contentPadding: EdgeInsets.symmetric(vertical: 10.0),
-                          hintText: "Start"
+                  new Column(
+                    children: <Widget>[
+                      new Container(
+                        width: 68.0,
+                        child: new TextField(
+                            controller: startLoc,
+                            decoration: new InputDecoration(
+                                border: OutlineInputBorder(),
+                                contentPadding: EdgeInsets.symmetric(vertical: 10.0),
+                                hintText: "Start"
+                            ),
+                            style: new TextStyle(
+                              fontSize: 14.0,
+                              height: 1.0,
+                              color: Colors.black,
+                            )
                         ),
-                        style: new TextStyle(
-                          fontSize: 14.0,
-                          height: 1.0,
-                          color: Colors.black,
-                        )
-                    ),
-                  ),
-                  Spacer(flex:2),
-                  new Container(
-                    width: 88.0,
-                    child: new TextField(
-                        controller: endLoc,
-                        decoration: new InputDecoration(
-                            border: OutlineInputBorder(),
-                            contentPadding: EdgeInsets.symmetric(vertical: 10.0),
-                            hintText: "End"
+                      ),
+                      new Container(
+                        width: 68.0,
+                        child: new TextField(
+                            controller: endLoc,
+                            decoration: new InputDecoration(
+                                border: OutlineInputBorder(),
+                                contentPadding: EdgeInsets.symmetric(vertical: 10.0),
+                                hintText: "End"
+                            ),
+                            style: new TextStyle(
+                              fontSize: 14.0,
+                              height: 1.0,
+                              color: Colors.black,
+                            )
                         ),
-                        style: new TextStyle(
-                          fontSize: 14.0,
-                          height: 1.0,
-                          color: Colors.black,
-                        )
-                    ),
+                      ),
+                    ],
                   ),
                   Spacer(flex: 2),
                   new RaisedButton(
@@ -1697,27 +1843,17 @@ class _MyMapPageState extends State<MyMapPage> {
                           });
                         }
                         else{
-                          directions = director.FindPath(yourLoc, end, false);
+                          directions = director.FindPath(yourLoc, end, accessIssues);
                           currentDirection = 0;
                           setState((){
                             direct = Text(directions[0]);
                             nextDirect = RaisedButton(
                                 child: new Text("Next Step"),
-                                onPressed: () {
-                                  setState(() {
-                                    currentDirection++;
-                                    if(currentDirection == directions.length){
-                                      direct = Text("Your desired location will be in this area.");
-                                      nextDirect = RaisedButton(
-                                          child: new Text("Next Step"),
-                                          onPressed: null
-                                      );
-                                    }
-                                    else{
-                                      direct = Text(directions[currentDirection]);
-                                    }
-                                  });
-                                }
+                                onPressed: () {nextActive();}
+                            );
+                            prevDirect = RaisedButton(
+                                child: new Text("Prev Step"),
+                                onPressed: null
                             );
                           });
                         }
@@ -1742,8 +1878,20 @@ class _MyMapPageState extends State<MyMapPage> {
 //                            setState(() {map = AssetImage("images/First.jpg");});
 //                        }
                       }),
-                  Spacer(flex:1)
-
+                  Spacer(flex:3),
+                  Container(
+                      width: 10.0,
+                      child:  Checkbox(
+                              value: accessIssues,
+                              onChanged: (bool value){
+                                setState(() {
+                                  accessIssues = value;
+                                });
+                              })
+                  ),
+                  Spacer(flex: 1),
+                  Text("Accesibilty Issues"),
+                  Spacer(flex: 1)
                 ]
             ),
             Spacer(flex: 1),
@@ -1759,7 +1907,17 @@ class _MyMapPageState extends State<MyMapPage> {
               child: direct
             ),
             Spacer(flex: 1),
-              nextDirect,
+              Container(
+                height: 100.0,
+                width: 100.0,
+                child:  new Column(
+                  children: <Widget>[
+                    prevDirect,
+                    nextDirect,
+                  ],
+                ),
+              ),
+
               Spacer(flex: 1)
             ]
             ),
