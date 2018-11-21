@@ -8,6 +8,7 @@ MyHomePage homePage = new MyHomePage(title: 'Home');
 MyMapPage mapPage = new MyMapPage(title: 'Map');
 MyInfoPage infoPage = new MyInfoPage(title: 'Info');
 MyLoginPage loginPage = new MyLoginPage(title: 'Faculty');
+MyFacultyResultPage resultPage = new MyFacultyResultPage(title: 'Results');
 AssetImage map = new AssetImage("images/First.jpg");
 
 class Section{
@@ -1363,7 +1364,7 @@ CreateNav(BuildContext context, bool isHome){
       ),
       new ListTile(
         leading: new Icon(Icons.person),
-        title: new Text('Faculty Login'),
+        title: new Text('Faculty'),
         onTap: (){
           Navigator.pop(context);
           if(!isHome){
@@ -1916,6 +1917,9 @@ class _MyLoginPageState extends State<MyLoginPage> {
   Icon _searchIcon = new Icon(Icons.search);
   String _searchText = "";
   Widget _appBarTitle = new Text( 'Search Example' );
+  List<String> resultList = ["NA","NA","NA","NA","NA","NA"];
+
+
 
   sqlJocky.MySqlConnection conn;
 
@@ -1944,7 +1948,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
   }
 
   openConnection() async{
-    var s = sqlJocky.ConnectionSettings(
+    var connectionSettings = sqlJocky.ConnectionSettings(
       user: "root",
       password: "BooBooBla2",
       host: "10.0.2.2",
@@ -1953,7 +1957,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
     );
     // create a connection
     print("Opening connection ...");
-    conn = await sqlJocky.MySqlConnection.connect(s);
+    conn = await sqlJocky.MySqlConnection.connect(connectionSettings);
     print("Opened connection!");
     readData();
     //await conn.close();
@@ -1983,7 +1987,16 @@ class _MyLoginPageState extends State<MyLoginPage> {
     await conn.execute("SELECT * FROM employee WHERE name = '$input';"
 
     );
-    print(result);
+
+    resultList.clear();
+    var resultString = result.toString();
+    resultList = resultString.split(",");
+
+
+
+    print(resultList);
+
+
   }
   Widget _buildList() {
     if (!(searchInput.text.isEmpty)) {
@@ -2000,7 +2013,12 @@ class _MyLoginPageState extends State<MyLoginPage> {
       itemBuilder: (BuildContext context, int index) {
         return new ListTile(
           title: Text(myList[index]),
-          onTap: () => outputData(myList[index]),
+          onTap: () {
+            outputData(myList[index]);
+            Navigator.pop(context);
+            Navigator.push(context, MaterialPageRoute(builder: (context) => new MyFacultyResultPage(title: 'Results', returnList: resultList)));
+
+          },
         );
       },
     );
@@ -2111,6 +2129,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
 
             ),
             new Spacer(flex: 1),
+
             new Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -2139,6 +2158,131 @@ class _MyLoginPageState extends State<MyLoginPage> {
         ),
       ), // This trailing comma makes auto-formatting nicer for build method
       resizeToAvoidBottomPadding: false,
+    );
+  }
+}
+class MyFacultyResultPage extends StatefulWidget {
+  final List returnList;
+  final String title;
+
+  MyFacultyResultPage({Key key, this.title, @required this.returnList}) : super(key: key);
+
+  // This widget is the home page of your application. It is stateful, meaning
+  // that it has a State object (defined below) that contains fields that affect
+  // how it looks.
+
+  // This class is the configuration for the state. It holds the values (in this
+  // case the title) provided by the parent (in this case the App widget) and
+  // used by the build method of the State. Fields in a Widget subclass are
+  // always marked "final".
+
+
+
+  @override
+  _MyFacultyResultPageState createState() => new _MyFacultyResultPageState();
+}
+
+class _MyFacultyResultPageState extends State<MyFacultyResultPage> {
+
+  @override
+  Widget build(BuildContext context) {
+    // This method is rerun every time setState is called, for instance as done
+    // by the _incrementCounter method above.
+    //
+    // The Flutter framework has been optimized to make rerunning build methods
+    // fast, so that you can just rebuild anything that needs updating rather
+    // than having to individually change instances of widgets.
+    return new Scaffold(
+      appBar: new AppBar(
+        // Here we take the value from the MyHomePage object that was created by
+        // the App.build method, and use it to set our appbar title.
+        title: new Text(widget.title),
+      ),
+      body: new Center(
+        // Center is a layout widget. It takes a single child and positions it
+        // in the middle of the parent.
+        child: new Container(
+            child: Table(
+                border: TableBorder.all(width: 1.0, color: Colors.black),
+                children: [
+                  TableRow(children: [
+                    TableCell(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          new Text("Name"),
+                          new Text(widget.returnList[1]),
+                        ],
+                      ),
+                    )
+                  ]),
+                  TableRow(children: [
+                    TableCell(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          new Text("Title"),
+                          new Text(widget.returnList[2]),
+                        ],
+                      ),
+                    )
+                  ]),
+                  TableRow(children: [
+                    TableCell(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          new Text("Email"),
+                          new Text(widget.returnList[3]),
+                        ],
+                      ),
+                    )
+                  ]),
+                  TableRow(children: [
+                    TableCell(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          new Text("Department"),
+                          new Text(widget.returnList[4]),
+                        ],
+                      ),
+                    )
+                  ]),
+                  TableRow(children: [
+                    TableCell(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          new Text("Office #"),
+                          new Text(widget.returnList[5]),
+                        ],
+                      ),
+                    )
+                  ]),
+                ]
+
+
+            )
+        ),
+          // Column is also layout widget. It takes a list of children and
+          // arranges them vertically. By default, it sizes itself to fit its
+          // children horizontally, and tries to be as tall as its parent.
+          //
+          // Invoke "debug paint" (press "p" in the console where you ran
+          // "flutter run", or select "Toggle Debug Paint" from the Flutter tool
+          // window in IntelliJ) to see the wireframe for each widget.
+          //
+          // Column has various properties to control how it sizes itself and
+          // how it positions its children. Here we use mainAxisAlignment to
+          // center the children vertically; the main axis here is the vertical
+          // axis because Columns are vertical (the cross axis would be
+          // horizontal).
+
+        ),
+       // This trailing comma makes auto-formatting nicer for build method
+
+
     );
   }
 }
