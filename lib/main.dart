@@ -2208,9 +2208,16 @@ class _MyFacultyResultPageState extends State<MyFacultyResultPage> {
                   TableRow(children: [
                     TableCell(
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           new Text("Name"),
+                        ],
+                      ),
+                    ),
+                    TableCell(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
                           new Text(widget.returnList[1]),
                         ],
                       ),
@@ -2219,9 +2226,16 @@ class _MyFacultyResultPageState extends State<MyFacultyResultPage> {
                   TableRow(children: [
                     TableCell(
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           new Text("Title"),
+                        ],
+                      ),
+                    ),
+                    TableCell(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
                           new Text(widget.returnList[2]),
                         ],
                       ),
@@ -2230,9 +2244,16 @@ class _MyFacultyResultPageState extends State<MyFacultyResultPage> {
                   TableRow(children: [
                     TableCell(
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           new Text("Email"),
+                        ],
+                      ),
+                    ),
+                    TableCell(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
                           new Text(widget.returnList[3]),
                         ],
                       ),
@@ -2241,9 +2262,16 @@ class _MyFacultyResultPageState extends State<MyFacultyResultPage> {
                   TableRow(children: [
                     TableCell(
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           new Text("Department"),
+                        ],
+                      ),
+                    ),
+                    TableCell(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
                           new Text(widget.returnList[4]),
                         ],
                       ),
@@ -2252,9 +2280,16 @@ class _MyFacultyResultPageState extends State<MyFacultyResultPage> {
                   TableRow(children: [
                     TableCell(
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           new Text("Office #"),
+                        ],
+                      ),
+                    ),
+                    TableCell(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
                           new Text(widget.returnList[5]),
                         ],
                       ),
