@@ -2037,13 +2037,16 @@ class _MyInfoPageState extends State<MyInfoPage> {
                     'Mens shower is in first floor bathroom.\n'
                     'Womens shower is in second floor bathroom (CS side).\n'
                     'Rooms down the first floor hall are oddly numbered.\n'
-                    'There is a Starbucks Express on the second floor\n'
-                    'There are vending machines on the first floor\n'
-                    'The first digit of the room number is the floor number\n'
+                    'There is a Starbucks Express on the second floor.\n'
+                    'There are vending machines on the first floor.\n'
+                    'The first digit of the room number is the floor number.\n'
                     'The second digit is which side of Shelby Hall the room is in.\n'
                     '(1 - Middle | 2 - South side | 3 - West side)\n',
+                  style: new TextStyle(
+                    fontSize: 14.0,
+                  ),
               ),
-              Spacer(flex: 5)],
+              Spacer(flex: 2)],
             ),
             new Spacer(flex: 1),
             new Row(
