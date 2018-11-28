@@ -2016,8 +2016,34 @@ class _MyInfoPageState extends State<MyInfoPage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new Text(
-              'This is the Shmapp Info Page',
+            new Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Spacer(flex:1),
+                new Text(
+                '\nThis is the Shmapp Info Page\n\n'
+                    ''
+                    'Important faculty:\n'
+                    'School of Computing Dean - Dr. Alec Yasinsac\n'
+                    'Academic Counselor - Ms. Vickie Speed\n'
+                    'CS Chair - Dr. Tom Johnsten\n'
+                    'Systems Administrator - Mr. Keith Lynn\n'
+                    'Director of Graduate Studies - Ms. Debra Chapman\n'
+                    'Recruiting Coordinator - Ms. Melissa Smith\n'
+                    'Shmapp Executive Director - Mr. Howard Whitston\n\n'
+                    ''
+                    'Building Info:\n'
+                    'First floor bathrooms are reversed.\n'
+                    'Mens shower is in first floor bathroom.\n'
+                    'Womens shower is in second floor bathroom (CS side).\n'
+                    'Rooms down the first floor hall are oddly numbered.\n'
+                    'There is a Starbucks Express on the second floor\n'
+                    'There are vending machines on the first floor\n'
+                    'The first digit of the room number is the floor number\n'
+                    'The second digit is which side of Shelby Hall the room is in.\n'
+                    '(1 - Middle | 2 - South side | 3 - West side)\n',
+              ),
+              Spacer(flex: 5)],
             ),
             new Spacer(flex: 1),
             new Row(
