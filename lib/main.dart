@@ -2218,7 +2218,7 @@ class _MyFacultyResultPageState extends State<MyFacultyResultPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          new Text(widget.returnList[1]),
+                          new Text(widget.returnList[1]== " null"? "NA" : widget.returnList[1]),
                         ],
                       ),
                     )
@@ -2236,7 +2236,7 @@ class _MyFacultyResultPageState extends State<MyFacultyResultPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          new Text(widget.returnList[2]),
+                          new Text(widget.returnList[2]== " null"? "NA" : widget.returnList[2]),
                         ],
                       ),
                     )
@@ -2254,7 +2254,7 @@ class _MyFacultyResultPageState extends State<MyFacultyResultPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          new Text(widget.returnList[3]),
+                          new Text(widget.returnList[3] == " null"? "NA" : widget.returnList[3]),
                         ],
                       ),
                     )
@@ -2272,7 +2272,7 @@ class _MyFacultyResultPageState extends State<MyFacultyResultPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          new Text(widget.returnList[4]),
+                          new Text(widget.returnList[4].toString() == ' null'? 'NA' : widget.returnList[4]),
                         ],
                       ),
                     )
@@ -2290,7 +2290,7 @@ class _MyFacultyResultPageState extends State<MyFacultyResultPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          new Text(widget.returnList[5]),
+                          new Text(widget.returnList[5]== " null"? "NA" : widget.returnList[5]),
                         ],
                       ),
                     )
