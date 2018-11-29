@@ -151,6 +151,12 @@ class Direct{
 
   String vertFE = "freight_elevator";
 
+  int startFloor;
+
+  int endFloor;
+
+  int vertDirectLoc;
+
   Direct(){
     this.CreateSections();
     this.CreateConnectionsAndDirections();
@@ -1324,9 +1330,11 @@ class Direct{
   }
 
   List FindPath(Section start, Section end, bool accessIssues){
-
+    startFloor = start.floor;
+    endFloor = end.floor;
     start = FindVertical(start, end, accessIssues);
     this.vertDirections = (this.vertDirections.reversed).toList();
+    vertDirectLoc = vertDirections.length;
     this.checked = new List();
     this.toCheck = new List();
     this.prevs = new List();
