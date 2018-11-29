@@ -1566,11 +1566,11 @@ var _selectedItem = '2nd Floor';
                           heroTag: "2nd Floor",
                       ),
                       PhotoViewGalleryPageOptions(
-                          imageProvider: AssetImage("images/Third.jpg"),
+                          imageProvider: AssetImage("images/Third.png"),
                           heroTag: "3rd Floor",
                       ),
                       PhotoViewGalleryPageOptions(
-                          imageProvider: AssetImage("images/Fourth.jpg"),
+                          imageProvider: AssetImage("images/Fourth.png"),
                           heroTag: "4th Floor",
                       ),
                     ]
