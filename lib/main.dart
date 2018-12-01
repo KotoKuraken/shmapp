@@ -1914,7 +1914,9 @@ class _MyLoginPageState extends State<MyLoginPage> {
   final searchInput = TextEditingController();
   List<String> myList = new List();
   List<String> names = new List();
+
   Icon _searchIcon = new Icon(Icons.search);
+  String errorText = "";
   String _searchText = "";
   Widget _appBarTitle = new Text( 'Search Example' );
   List<String> resultList = ["NA","NA","NA","NA","NA","NA"];
@@ -1957,9 +1959,21 @@ class _MyLoginPageState extends State<MyLoginPage> {
     );
     // create a connection
     print("Opening connection ...");
-    conn = await sqlJocky.MySqlConnection.connect(connectionSettings);
-    print("Opened connection!");
-    readData();
+    try{
+      conn = await sqlJocky.MySqlConnection.connect(connectionSettings);
+      print("Opened connection!");
+      readData();
+    }
+    catch(e)
+    {
+      setState(() {
+        errorText = "An error occured while connecting to the database.\n                           Please try again later.";
+      });
+
+
+    }
+
+
     //await conn.close();
 
 
@@ -1973,6 +1987,13 @@ class _MyLoginPageState extends State<MyLoginPage> {
     for(int i = 0; i < result.length;i++){
       tempList.add(result.elementAt(i).first);
     }
+    sqlJocky.Results orgResult =
+    await conn.execute("SELECT name FROM organizations;"
+
+    );
+    for(int i = 0; i < orgResult.length;i++){
+      tempList.add(orgResult.elementAt(i).first);
+    }
     setState((){
       names = tempList;
       names.sort();
@@ -1984,12 +2005,12 @@ class _MyLoginPageState extends State<MyLoginPage> {
   }
   void outputData(String input)async{
     sqlJocky.Results result =
-    await conn.execute("SELECT * FROM employee WHERE name = '$input';"
+    await conn.execute("SELECT * FROM employee Left join organizations On employee.OrganizationID = organizations.OrganizationId WHERE employee.name = '$input' OR organizations.name = '$input';"
 
     );
 
     resultList.clear();
-    var resultString = result.toString();
+    var resultString = result.toString().substring(2,result.toString().length - 2);
     resultList = resultString.split(",");
 
 
@@ -1999,29 +2020,36 @@ class _MyLoginPageState extends State<MyLoginPage> {
 
   }
   Widget _buildList() {
-    if (!(searchInput.text.isEmpty)) {
-      List<String> tempList = new List();
-      for (int i = 0; i < myList.length; i++) {
-        if (myList[i].toLowerCase().contains(searchInput.text.toLowerCase())) {
-          tempList.add(myList[i]);
+    if(errorText.isEmpty)
+    {
+      if (!(searchInput.text.isEmpty)) {
+        List<String> tempList = new List();
+        for (int i = 0; i < myList.length; i++) {
+          if (myList[i].toLowerCase().contains(searchInput.text.toLowerCase())) {
+            tempList.add(myList[i]);
+          }
         }
+        myList = tempList;
       }
-      myList = tempList;
-    }
-    return ListView.builder(
-      itemCount: names == null ? 0 : myList.length,
-      itemBuilder: (BuildContext context, int index) {
-        return new ListTile(
-          title: Text(myList[index]),
-          onTap: () {
-            outputData(myList[index]);
-            Navigator.pop(context);
-            Navigator.push(context, MaterialPageRoute(builder: (context) => new MyFacultyResultPage(title: 'Results', returnList: resultList)));
+      return ListView.builder(
+        itemCount: names == null ? 0 : myList.length,
+        itemBuilder: (BuildContext context, int index) {
+          return new ListTile(
+            title: Text(myList[index]),
+            onTap: () {
+              outputData(myList[index]);
+              Navigator.pop(context);
+              Navigator.push(context, MaterialPageRoute(builder: (context) => new MyFacultyResultPage(title: 'Results', returnList: resultList)));
 
-          },
-        );
-      },
-    );
+            },
+          );
+        },
+      );
+    }
+    else {
+      return new Text(errorText);
+    }
+
   }
   void _searchPressed() {
     setState(() {
@@ -2110,7 +2138,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
                               ), // icon is 48px widget.
                             ),
 
-                            hintText: "Search: Name, Email, Title, Department..."
+                            hintText: "Search: Name or Organization..."
                         ),
                         style: new TextStyle(
                           fontSize: 14.0,
@@ -2122,8 +2150,9 @@ class _MyLoginPageState extends State<MyLoginPage> {
 
                 ]
             ),
+            new Spacer(flex:1),
             new Expanded(
-
+                flex: 3,
                 child: _buildList(),
 
 
