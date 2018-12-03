@@ -1361,8 +1361,10 @@ class Direct{
 
     //If you're the end, let everyone know that the end has been found, tell your predecessor that it is in the path, and add in directions to you
     if(current == end){
-      directions.add(previous.movementDirections[previous.movementConnects.indexOf(current)]);
-      previous.partOfPath = true;
+      if(previous != null){
+        directions.add(previous.movementDirections[previous.movementConnects.indexOf(current)]);
+        previous.partOfPath = true;
+      }
       this.found = true;
       return(true);
     }
@@ -1692,6 +1694,23 @@ class _MyMapPageState extends State<MyMapPage> {
       else{
         direct = Text(directions[currentDirection]);
       }
+      if(currentDirection == director.vertDirectLoc){
+        switch(director.endFloor){
+          case 1:
+            map = new AssetImage("images/First.png");
+            break;
+          case 2:
+            map = new AssetImage("images/Second.png");
+            break;
+          case 3:
+            map = new AssetImage("images/Third.png");
+            break;
+          case 4:
+            map = new AssetImage("images/Fourth.png");
+            break;
+        }
+      }
+
     });
   }
 
@@ -1702,6 +1721,22 @@ class _MyMapPageState extends State<MyMapPage> {
           child: new Text("Next Step"),
           onPressed: () {nextActive();}
         );
+      }
+      if(currentDirection == director.vertDirectLoc){
+        switch(director.startFloor){
+          case 1:
+            map = new AssetImage("images/First.png");
+            break;
+          case 2:
+            map = new AssetImage("images/Second.png");
+            break;
+          case 3:
+            map = new AssetImage("images/Third.png");
+            break;
+          case 4:
+            map = new AssetImage("images/Fourth.png");
+            break;
+        }
       }
       currentDirection--;
       if(currentDirection == 0){
