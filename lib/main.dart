@@ -1919,7 +1919,9 @@ class _MyLoginPageState extends State<MyLoginPage> {
   String errorText = "";
   String _searchText = "";
   Widget _appBarTitle = new Text( 'Search Example' );
-  List<String> resultList = ["NA","NA","NA","NA","NA","NA"];
+  List<String> resultList = new List();
+  var resultMap = new Map();
+  var outputText = "";
 
 
 
@@ -2012,11 +2014,24 @@ class _MyLoginPageState extends State<MyLoginPage> {
     resultList.clear();
     var resultString = result.toString().substring(2,result.toString().length - 2);
     resultList = resultString.split(",");
-
-
+    
+    resultMap = {"Employee Name" : resultList[1], "Title" : resultList[2], "Email" : resultList[3], "Department" : resultList[4], "Office #" : resultList[5], "Organization Name" : resultList[8], "Room #" : resultList[9], "Description" : resultList[10], "Membership Dues" : resultList[11]};
+    print(resultMap);
+    var keyList = new List();
+    resultMap.forEach((k,v){
+      if(v == " null")
+      {
+        keyList.add(k);
+      }
+    });
+    for(int i = 0; i < keyList.length; i++)
+      {
+        resultMap.remove(keyList[i]);
+      }
+    resultMap.forEach((k,v) => outputText += "\n\n" + ('${k}: ${v}'));
 
     print(resultList);
-
+    print(outputText);
 
   }
   Widget _buildList() {
@@ -2039,7 +2054,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
             onTap: () {
               outputData(myList[index]);
               Navigator.pop(context);
-              Navigator.push(context, MaterialPageRoute(builder: (context) => new MyFacultyResultPage(title: 'Results', returnList: resultList)));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => new MyFacultyResultPage(title: myList[index], returnList: resultList, returnMap: outputText)));
 
             },
           );
@@ -2193,8 +2208,9 @@ class _MyLoginPageState extends State<MyLoginPage> {
 class MyFacultyResultPage extends StatefulWidget {
   final List returnList;
   final String title;
+  final String returnMap;
 
-  MyFacultyResultPage({Key key, this.title, @required this.returnList}) : super(key: key);
+  MyFacultyResultPage({Key key, this.title, @required this.returnList, @required this.returnMap}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -2213,6 +2229,8 @@ class MyFacultyResultPage extends StatefulWidget {
 
 class _MyFacultyResultPageState extends State<MyFacultyResultPage> {
 
+
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -2227,11 +2245,10 @@ class _MyFacultyResultPageState extends State<MyFacultyResultPage> {
         // the App.build method, and use it to set our appbar title.
         title: new Text(widget.title),
       ),
-      body: new Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: new Container(
-            child: Table(
+      body: new Container(
+          //"EMPLOYEE\n\n" + "Name: " + widget.returnList[1] + "\nTitle: " + widget.returnList[2]  + "\nEmail: " + widget.returnList[3] + "\nDepartment: " + widget.returnList[4] + "\nOffice #: " + widget.returnList[5]
+            child: new Text(widget.returnMap.toString()),
+            /*child: Table(
                 border: TableBorder.all(width: 1.0, color: Colors.black),
                 children: [
                   TableRow(children: [
@@ -2327,7 +2344,7 @@ class _MyFacultyResultPageState extends State<MyFacultyResultPage> {
                 ]
 
 
-            )
+            )*/
         ),
           // Column is also layout widget. It takes a list of children and
           // arranges them vertically. By default, it sizes itself to fit its
@@ -2343,10 +2360,10 @@ class _MyFacultyResultPageState extends State<MyFacultyResultPage> {
           // axis because Columns are vertical (the cross axis would be
           // horizontal).
 
-        ),
+        );
        // This trailing comma makes auto-formatting nicer for build method
 
 
-    );
+
   }
 }
