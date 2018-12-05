@@ -21,26 +21,35 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+    <leaf>
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="167">
-              <caret line="341" selection-start-line="341" selection-start-column="2" selection-end-line="341" selection-end-column="32" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pubspec.yaml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pubspec.yaml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="211">
-              <caret line="41" column="23" lean-forward="true" selection-start-line="41" selection-start-column="23" selection-end-line="41" selection-end-column="23" />
+            <state relative-caret-position="170">
+              <caret line="1977" lean-forward="true" selection-start-line="1977" selection-end-line="1977" />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>list</find>
+      <find>main</find>
+      <find>select</find>
+      <find>if</find>
+      <find>names</find>
+      <find>print</find>
+      <find>SELECT</find>
+      <find>PRINT</find>
+      <find>OUTPUTD</find>
+      <find>read</find>
+      <find>readda</find>
+      <find>readdata</find>
+      <find>/*</find>
+      <find>flex</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -53,10 +62,10 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="55" />
-    <option name="y" value="54" />
-    <option name="width" value="1094" />
+    <option name="y" value="52" />
+    <option name="width" value="1095" />
     <option name="height" value="915" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -65,7 +74,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -73,13 +83,17 @@
               <item name="shmapp" type="b2602c69:ProjectViewProjectNode" />
               <item name="shmapp" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="shmapp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shmapp" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
         <option name="show-excluded-files" value="false" />
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -182,64 +196,40 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="55" y="54" width="1094" height="915" extended-state="0" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="Android Profiler" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" order="8" weight="0.32947233" />
+      <window_info anchor="bottom" id="Messages" order="8" weight="0.32827586" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Build Variants" order="2" sideWeight="0.50213677" side_tool="true" weight="0.25531915" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Dart Analysis" order="7" weight="0.32905984" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.33204633" />
-      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32947233" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.50620687" />
+      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" weight="0.32947233" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info anchor="right" id="Flutter Outline" order="3" />
       <window_info anchor="bottom" id="Logcat" order="7" />
       <window_info id="Captures" order="2" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49786323" visible="true" weight="0.25531915" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49786323" visible="true" weight="0.14322917" />
       <window_info id="Structure" order="1" sideWeight="0.50213677" side_tool="true" weight="0.25531915" />
       <window_info anchor="right" id="Device File Explorer" order="3" side_tool="true" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3976834" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" id="Flutter Inspector" order="3" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49786323" visible="true" weight="0.25531915" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="Dart Analysis" order="7" weight="0.32905984" />
-      <window_info anchor="right" id="Flutter Inspector" order="3" />
-      <window_info id="Build Variants" order="2" sideWeight="0.50213677" side_tool="true" weight="0.25531915" />
-      <window_info id="Structure" order="1" sideWeight="0.50213677" side_tool="true" weight="0.25531915" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="right" id="Palette&#9;" order="3" />
-      <window_info anchor="bottom" id="Logcat" order="7" />
-      <window_info anchor="right" id="Device File Explorer" order="3" side_tool="true" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3976834" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info id="Image Layers" order="2" />
-      <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info anchor="bottom" id="Android Profiler" order="7" show_stripe_button="false" />
-      <window_info anchor="right" id="Flutter Outline" order="3" />
-      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32947233" />
-      <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info id="Capture Tool" order="2" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.33204633" />
-      <window_info anchor="bottom" id="Messages" order="8" weight="0.32947233" />
-      <window_info id="Captures" order="2" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info id="Designer" order="2" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -280,34 +270,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Documents/DevEnvironments/Flutter/flutter/packages/flutter/lib/src/widgets/binding.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="727" column="6" selection-start-line="727" selection-start-column="6" selection-end-line="727" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Documents/DevEnvironments/Flutter/flutter/packages/flutter/lib/src/widgets/widget_inspector.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="810" column="7" selection-start-line="810" selection-start-column="7" selection-end-line="810" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Documents/DevEnvironments/Flutter/flutter/packages/flutter/lib/src/foundation/binding.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="397" column="14" selection-start-line="397" selection-start-column="14" selection-end-line="397" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Documents/DevEnvironments/Flutter/flutter/packages/flutter/lib/src/widgets/focus_manager.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="442" column="4" selection-start-line="442" selection-start-column="4" selection-end-line="442" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/../../DevEnvironments/Flutter/flutter/packages/flutter/lib/src/widgets/binding.dart" />
+    <entry file="file://$PROJECT_DIR$/../../DevEnvironments/Flutter/flutter/packages/flutter/lib/src/widgets/widget_inspector.dart" />
+    <entry file="file://$PROJECT_DIR$/../../DevEnvironments/Flutter/flutter/packages/flutter/lib/src/foundation/binding.dart" />
+    <entry file="file://$PROJECT_DIR$/../../DevEnvironments/Flutter/flutter/packages/flutter/lib/src/widgets/focus_manager.dart" />
     <entry file="file://$PROJECT_DIR$/pubspec.yaml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="211">
@@ -315,41 +281,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Documents/DevEnvironments/Flutter/flutter/packages/flutter/lib/src/rendering/proxy_box.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="1835" column="5" selection-start-line="1835" selection-start-column="5" selection-end-line="1835" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Documents/DevEnvironments/Flutter/flutter/packages/flutter/lib/src/widgets/framework.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="4666" column="2" selection-start-line="4666" selection-start-column="2" selection-end-line="4666" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Documents/DevEnvironments/Flutter/flutter/packages/flutter/lib/src/painting/image_provider.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="404" column="34" selection-start-line="404" selection-start-column="34" selection-end-line="404" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Documents/DevEnvironments/Flutter/flutter/packages/flutter/lib/src/painting/image_resolution.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="134" column="32" selection-start-line="134" selection-start-column="32" selection-end-line="134" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Documents/DevEnvironments/Flutter/flutter/packages/flutter/lib/src/painting/decoration_image.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/../../DevEnvironments/Flutter/flutter/packages/flutter/lib/src/rendering/proxy_box.dart" />
+    <entry file="file://$PROJECT_DIR$/../../DevEnvironments/Flutter/flutter/packages/flutter/lib/src/widgets/framework.dart" />
+    <entry file="file://$PROJECT_DIR$/../../DevEnvironments/Flutter/flutter/packages/flutter/lib/src/painting/image_provider.dart" />
+    <entry file="file://$PROJECT_DIR$/../../DevEnvironments/Flutter/flutter/packages/flutter/lib/src/painting/image_resolution.dart" />
+    <entry file="file://$PROJECT_DIR$/../../DevEnvironments/Flutter/flutter/packages/flutter/lib/src/painting/decoration_image.dart" />
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2441">
@@ -378,34 +314,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Documents/DevEnvironments/Flutter/flutter/packages/flutter/lib/src/widgets/binding.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="727" column="6" selection-start-line="727" selection-start-column="6" selection-end-line="727" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Documents/DevEnvironments/Flutter/flutter/packages/flutter/lib/src/widgets/widget_inspector.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="810" column="7" selection-start-line="810" selection-start-column="7" selection-end-line="810" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Documents/DevEnvironments/Flutter/flutter/packages/flutter/lib/src/foundation/binding.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="397" column="14" selection-start-line="397" selection-start-column="14" selection-end-line="397" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Documents/DevEnvironments/Flutter/flutter/packages/flutter/lib/src/widgets/focus_manager.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="442" column="4" selection-start-line="442" selection-start-column="4" selection-end-line="442" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/../../DevEnvironments/Flutter/flutter/packages/flutter/lib/src/widgets/binding.dart" />
+    <entry file="file://$PROJECT_DIR$/../../DevEnvironments/Flutter/flutter/packages/flutter/lib/src/widgets/widget_inspector.dart" />
+    <entry file="file://$PROJECT_DIR$/../../DevEnvironments/Flutter/flutter/packages/flutter/lib/src/foundation/binding.dart" />
+    <entry file="file://$PROJECT_DIR$/../../DevEnvironments/Flutter/flutter/packages/flutter/lib/src/widgets/focus_manager.dart" />
     <entry file="file://$PROJECT_DIR$/pubspec.yaml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="211">
@@ -413,45 +325,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Documents/DevEnvironments/Flutter/flutter/packages/flutter/lib/src/rendering/proxy_box.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="1835" column="5" selection-start-line="1835" selection-start-column="5" selection-end-line="1835" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Documents/DevEnvironments/Flutter/flutter/packages/flutter/lib/src/widgets/framework.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="4666" column="2" selection-start-line="4666" selection-start-column="2" selection-end-line="4666" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Documents/DevEnvironments/Flutter/flutter/packages/flutter/lib/src/painting/image_provider.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="404" column="34" selection-start-line="404" selection-start-column="34" selection-end-line="404" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Documents/DevEnvironments/Flutter/flutter/packages/flutter/lib/src/painting/image_resolution.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="134" column="32" selection-start-line="134" selection-start-column="32" selection-end-line="134" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Documents/DevEnvironments/Flutter/flutter/packages/flutter/lib/src/painting/decoration_image.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/../../DevEnvironments/Flutter/flutter/packages/flutter/lib/src/rendering/proxy_box.dart" />
+    <entry file="file://$PROJECT_DIR$/../../DevEnvironments/Flutter/flutter/packages/flutter/lib/src/widgets/framework.dart" />
+    <entry file="file://$PROJECT_DIR$/../../DevEnvironments/Flutter/flutter/packages/flutter/lib/src/painting/image_provider.dart" />
+    <entry file="file://$PROJECT_DIR$/../../DevEnvironments/Flutter/flutter/packages/flutter/lib/src/painting/image_resolution.dart" />
+    <entry file="file://$PROJECT_DIR$/../../DevEnvironments/Flutter/flutter/packages/flutter/lib/src/painting/decoration_image.dart" />
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="341" selection-start-line="341" selection-start-column="2" selection-end-line="341" selection-end-column="32" />
+        <state relative-caret-position="170">
+          <caret line="1977" lean-forward="true" selection-start-line="1977" selection-end-line="1977" />
         </state>
       </provider>
     </entry>
