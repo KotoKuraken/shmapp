@@ -1041,6 +1041,12 @@ class Direct{
       "2317" : section2_5A,
       "2318" : section2_5A,
 
+      "2304" : section2_Sp5,
+      "2305" : section2_Sp5,
+      "2306" : section2_Sp5,
+      "2308" : section2_Sp5,
+      "2310" : section2_Sp5,
+
       "2319" : section2_5B,
       "2321" : section2_5B,
       "2320" : section2_5B,
