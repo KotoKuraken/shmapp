@@ -1957,7 +1957,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
       password: "BooBooBla2",
       host: "10.0.2.2",
       port: 3306,
-      db: "PeanutRoom",
+      db: "peanutroom",
     );
     // create a connection
     print("Opening connection ...");
@@ -1970,7 +1970,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
     {
       setState(() {
         errorText = "An error occured while connecting to the database.\n                           Please try again later.";
-      });
+    });
 
 
     }
@@ -1979,8 +1979,9 @@ class _MyLoginPageState extends State<MyLoginPage> {
     //await conn.close();
 
 
-  }
-  void readData() async {
+    }
+    void readData()
+    async {
     sqlJocky.Results result =
     await conn.execute("SELECT name FROM employee;"
 
@@ -1996,6 +1997,12 @@ class _MyLoginPageState extends State<MyLoginPage> {
     for(int i = 0; i < orgResult.length;i++){
       tempList.add(orgResult.elementAt(i).first);
     }
+    sqlJocky.Results labResult =
+    await conn.execute("SELECT LabName FROM lab;"
+    );
+    for(int i = 0; i < labResult.length;i++){
+      tempList.add(labResult.elementAt(i).first);
+    }
     setState((){
       names = tempList;
       names.sort();
@@ -2006,32 +2013,50 @@ class _MyLoginPageState extends State<MyLoginPage> {
 
   }
   void outputData(String input)async{
-    sqlJocky.Results result =
-    await conn.execute("SELECT * FROM employee Left join organizations On employee.OrganizationID = organizations.OrganizationId WHERE employee.name = '$input' OR organizations.name = '$input';"
+
+    sqlJocky.Results labResult =
+    await conn.execute("SELECT * FROM lab where labname = '$input';"
 
     );
-
     resultList.clear();
-    var resultString = result.toString().substring(2,result.toString().length - 2);
-    resultList = resultString.split(",");
-    
-    resultMap = {"Employee Name" : resultList[1], "Title" : resultList[2], "Email" : resultList[3], "Department" : resultList[4], "Office #" : resultList[5], "Organization Name" : resultList[8], "Room #" : resultList[9], "Description" : resultList[10], "Membership Dues" : resultList[11]};
-    print(resultMap);
-    var keyList = new List();
-    resultMap.forEach((k,v){
-      if(v == " null")
-      {
-        keyList.add(k);
-      }
-    });
-    for(int i = 0; i < keyList.length; i++)
+    resultList = labResult.toString().substring(0,labResult.toString().length-2).split(",");
+    print(labResult);
+    if(labResult.isEmpty)
+    {
+      sqlJocky.Results result =
+      await conn.execute("SELECT * FROM employee Left join organizations On employee.OrganizationID = organizations.OrganizationId WHERE employee.name = '$input' OR organizations.name = '$input';"
+
+      );
+
+      resultList.clear();
+      var resultString = result.toString().substring(2,result.toString().length - 2);
+      resultList = resultString.split(",");
+
+      resultMap = {"Employee Name" : resultList[1], "Title" : resultList[2], "Email" : resultList[3], "Department" : resultList[4], "Office #" : resultList[5], "Organization Name" : resultList[8], "Room #" : resultList[9], "Description" : resultList[10], "Membership Dues" : resultList[11]};
+      print(resultMap);
+      var keyList = new List();
+      resultMap.forEach((k,v){
+        if(v == " null")
+        {
+          keyList.add(k);
+        }
+      });
+      for(int i = 0; i < keyList.length; i++)
       {
         resultMap.remove(keyList[i]);
       }
+
+    }
+    else{
+      resultMap.clear();
+      resultMap = {"Lab Name" : resultList[1], "Room #" : resultList[2]};
+    }
+    outputText = "";
     resultMap.forEach((k,v) => outputText += "\n\n" + ('${k}: ${v}'));
 
     print(resultList);
     print(outputText);
+
 
   }
   Widget _buildList() {
@@ -2053,7 +2078,6 @@ class _MyLoginPageState extends State<MyLoginPage> {
             title: Text(myList[index]),
             onTap: () {
               outputData(myList[index]);
-              Navigator.pop(context);
               Navigator.push(context, MaterialPageRoute(builder: (context) => new MyFacultyResultPage(title: myList[index], returnList: resultList, returnMap: outputText)));
 
             },
@@ -2153,7 +2177,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
                               ), // icon is 48px widget.
                             ),
 
-                            hintText: "Search: Name or Organization..."
+                            hintText: "Employee, Organization, or Lab..."
                         ),
                         style: new TextStyle(
                           fontSize: 14.0,
