@@ -2163,10 +2163,10 @@ class MyLoginPage extends StatefulWidget {
 }
 
 class _MyLoginPageState extends State<MyLoginPage> {
+  //variables needed to set state
   final searchInput = TextEditingController();
   List<String> myList = new List();
   List<String> names = new List();
-
   Icon _searchIcon = new Icon(Icons.search);
   String errorText = "";
   String _searchText = "";
@@ -2174,12 +2174,10 @@ class _MyLoginPageState extends State<MyLoginPage> {
   List<String> resultList = new List();
   var resultMap = new Map();
   var outputText = "";
-
-
-
   sqlJocky.MySqlConnection conn;
 
 
+  //create initial state
   _MyLoginPageState(){
     searchInput.addListener(() {
       if (searchInput.text.isEmpty) {
@@ -2195,6 +2193,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
     });
 
   }
+  //open connection to database and display state
   @override
   void initState(){
     this.openConnection();
@@ -2202,36 +2201,30 @@ class _MyLoginPageState extends State<MyLoginPage> {
 
 
   }
-
+  //function for connecting to database using SqlJocky5
   openConnection() async{
     var connectionSettings = sqlJocky.ConnectionSettings(
       user: "root",
-      password: "root",
+      password: "BooBooBla2",
       host: "10.0.2.2",
       port: 3306,
       db: "peanutroom",
     );
     // create a connection
-    print("Opening connection ...");
     try{
       conn = await sqlJocky.MySqlConnection.connect(connectionSettings);
-      print("Opened connection!");
       readData();
     }
-    catch(e)
-    {
+    //if the database does not successfully connect:
+    catch(e) {
       setState(() {
-        errorText = "An error occured while connecting to the database.\n                           Please try again later.";
-    });
-
-
+        errorText =
+        "An error occured while connecting to the database.\n                           Please try again later.";
+      });
+    }
     }
 
-
-    //await conn.close();
-
-
-    }
+    //function for reading data from the database and storing it into a single list to output on the page
     void readData()
     async {
     sqlJocky.Results result =
@@ -2259,11 +2252,12 @@ class _MyLoginPageState extends State<MyLoginPage> {
       names = tempList;
       names.sort();
       myList = names;
-      print(names);
     });
 
 
   }
+
+  //function for displaying the information pertaining to the user's selection
   void outputData(String input)async{
 
     sqlJocky.Results labResult =
@@ -2272,7 +2266,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
     );
     resultList.clear();
     resultList = labResult.toString().substring(0,labResult.toString().length-2).split(",");
-    print(labResult);
+    //if the selection does not exist in the lab table
     if(labResult.isEmpty)
     {
       sqlJocky.Results result =
@@ -2285,7 +2279,6 @@ class _MyLoginPageState extends State<MyLoginPage> {
       resultList = resultString.split(",");
 
       resultMap = {"Employee Name" : resultList[1], "Title" : resultList[2], "Email" : resultList[3], "Department" : resultList[4], "Office #" : resultList[5], "Organization Name" : resultList[8], "Room #" : resultList[9], "Description" : resultList[10], "Membership Dues" : resultList[11]};
-      print(resultMap);
       var keyList = new List();
       resultMap.forEach((k,v){
         if(v == " null")
@@ -2297,20 +2290,16 @@ class _MyLoginPageState extends State<MyLoginPage> {
       {
         resultMap.remove(keyList[i]);
       }
-
     }
+    //if the selection does exist in the lab table
     else{
       resultMap.clear();
       resultMap = {"Lab Name" : resultList[1], "Room #" : resultList[2]};
     }
     outputText = "";
     resultMap.forEach((k,v) => outputText += "\n\n" + ('${k}: ${v}'));
-
-    print(resultList);
-    print(outputText);
-
-
   }
+  //builds the selection list for display
   Widget _buildList() {
     if(errorText.isEmpty)
     {
@@ -2340,8 +2329,9 @@ class _MyLoginPageState extends State<MyLoginPage> {
     else {
       return new Text(errorText);
     }
-
   }
+
+  //changes state of search bar when pressed
   void _searchPressed() {
     setState(() {
       if (this._searchIcon.icon == Icons.search) {
@@ -2405,10 +2395,8 @@ class _MyLoginPageState extends State<MyLoginPage> {
             new Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-
+                  //create search bar
                   new Container(
-
-
                     height: 30.0,
                     width: 300.0,
 
@@ -2418,8 +2406,6 @@ class _MyLoginPageState extends State<MyLoginPage> {
                         controller: searchInput,
 
                         decoration: new InputDecoration(
-
-
                             prefixIcon: Padding(
                               padding: EdgeInsets.all(0.0),
                               child: IconButton(
@@ -2442,6 +2428,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
                 ]
             ),
             new Spacer(flex:1),
+            //display list
             new Expanded(
                 flex: 3,
                 child: _buildList(),
@@ -2449,7 +2436,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
 
             ),
             new Spacer(flex: 1),
-
+            //change page button
             new Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -2481,11 +2468,12 @@ class _MyLoginPageState extends State<MyLoginPage> {
     );
   }
 }
+//page for displaying results
 class MyFacultyResultPage extends StatefulWidget {
+  //variables that are inherited
   final List returnList;
   final String title;
   final String returnMap;
-
   MyFacultyResultPage({Key key, this.title, @required this.returnList, @required this.returnMap}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
@@ -2505,8 +2493,6 @@ class MyFacultyResultPage extends StatefulWidget {
 
 class _MyFacultyResultPageState extends State<MyFacultyResultPage> {
 
-
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -2521,8 +2507,8 @@ class _MyFacultyResultPageState extends State<MyFacultyResultPage> {
         // the App.build method, and use it to set our appbar title.
         title: new Text(widget.title),
       ),
+      //display return map as the results for the user's selection
       body: new Container(
-
             child: new Text(widget.returnMap.toString()),
         ),
           // Column is also layout widget. It takes a list of children and
