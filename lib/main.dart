@@ -9,9 +9,9 @@ MyMapPage mapPage = new MyMapPage(title: 'Map');
 MyInfoPage infoPage = new MyInfoPage(title: 'Info');
 MyLoginPage loginPage = new MyLoginPage(title: 'Faculty');
 MyFacultyResultPage resultPage = new MyFacultyResultPage(title: 'Results');
-AssetImage map = new AssetImage("images/First.jpg");
+AssetImage map = new AssetImage("images/First.png");
 
-
+//Definition for the sections of the map
 class Section{
   var movementConnects;
   var specialConnects;
@@ -23,6 +23,7 @@ class Section{
   bool partOfPath;
   int floor;
 
+  //Section constructor
   Section(int floorNum){
     this.movementConnects = new List();
     this.specialConnects = new List();
@@ -36,8 +37,10 @@ class Section{
   }
 }
 
+//Class for building the graph that represents the map
 class Direct{
-  //floorNumber_floorSection
+  //Initialize map sections
+  //Naming convention: "section" + floorNumber + "_" + floorSection
   Section section1_1;
 
   Section section1_2;
@@ -133,6 +136,7 @@ class Direct{
 
   //End of section creation
 
+  //Other important variables
   var secMap;
 
   var checked;
@@ -159,6 +163,7 @@ class Direct{
 
   int vertDirectLoc;
 
+  //Constructor
   Direct(){
     this.CreateSections();
     this.CreateConnectionsAndDirections();
@@ -171,6 +176,7 @@ class Direct{
     this.found = false;
   }
 
+  //Assign all of the sections to a new section
   void CreateSections(){
     this.section1_1 = new Section(1);
 
@@ -265,6 +271,9 @@ class Direct{
     this.section4_2B = new Section(4);
   }
 
+  //Connect the sections together and provide directions corresponding to those connections
+  //This is what connects all of the nodes of the graph together
+  //resulting in a graph data structure corresponding to Shelby Hall
   void CreateConnectionsAndDirections(){
     //Instructor hall
     section1_1.movementConnects.add(section1_2);
@@ -892,6 +901,7 @@ class Direct{
 
   }
 
+  //Connects rooms to the section they are a part of
   void CreateSectionMap(){
     this.secMap = {
       //First Floor
@@ -1250,6 +1260,7 @@ class Direct{
     };
   }
 
+  //Gets a section from a room number
   Section GetSection(String room){
     try {
       return (secMap[room]);
@@ -1259,6 +1270,7 @@ class Direct{
     }
   }
 
+  //Function to start finding a way to move vertically if necessary
   Section FindVertical(Section start, Section end, bool accessIssues){
     if(start.floor == end.floor){
       return(start);
@@ -1268,6 +1280,7 @@ class Direct{
     }
   }
 
+  //Recursive function to continue searching for a way to move vertically until one is found
   Section FindVerticalPath(Section current, Section previous, int floorOfEnd, bool accessIssues){
     checked.add(current);
     if(this.found){
@@ -1278,6 +1291,7 @@ class Direct{
     //If you're the end, let everyone know that the end has been found, tell your predecessor that it is in the path, and add in directions to you
     if(current.verticalConnects.length > 0){
       for(int i = 0; i < current.verticalConnects.length; i++){
+        //If there are no accessibility issues, then look for stairs and regular elevators for vertical movement
         if(current.verticalConnects[i].floor == floorOfEnd && (current.verticalTypes[i] == vertS || current.verticalTypes[i] == vertE) && !accessIssues){
           this.found = true;
           this.vertDirections.add(current.verticalDirections[i]);
@@ -1287,6 +1301,8 @@ class Direct{
           }
           return(current.verticalConnects[i]);
         }
+        //If there are accessibility issues, look for normal elevators and freight elevators
+        //Freight elevators are only to be used by students with accessibility issues
         if(current.verticalConnects[i].floor == floorOfEnd && (current.verticalTypes[i] == vertE || current.verticalTypes[i] == vertFE) && accessIssues){
           this.found = true;
           this.vertDirections.add(current.verticalDirections[i]);
@@ -1298,7 +1314,6 @@ class Direct{
         }
       }
     }
-    //If you're not the end, but the end is one of your special connections, add in your directions to the end, then proceed as if you are the end.
 
 
     //For those that have not been checked and are not waiting to be checked, add your connected sections to that list of those that need to be checked
@@ -1337,6 +1352,7 @@ class Direct{
     return(toReturn);
   }
 
+  //Function to find a path from the starting room to the ending room
   List FindPath(Section start, Section end, bool accessIssues){
     startFloor = start.floor;
     endFloor = end.floor;
@@ -1359,6 +1375,7 @@ class Direct{
     return theDirections;
   }
 
+  //Function to continue searching through the same floor until the end section is found.
   bool CheckAdjacent(Section current, Section previous, Section end){
     //Add the current section to the list of checked sections
     checked.add(current);
@@ -1430,7 +1447,7 @@ class Direct{
 
 
 
-
+//Builds the navigation bar that appears when the "Change Page" button is pressed
 CreateNav(BuildContext context, bool isHome){
   return new Column(
     mainAxisSize: MainAxisSize.min,
@@ -1516,6 +1533,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+//Home page and corresponding state
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
@@ -1571,6 +1589,7 @@ var _selectedItem = '2nd Floor';
           // axis because Columns are vertical (the cross axis would be
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
+          //Map displayed on home page
           children: <Widget>[
             Container(
                 child: PhotoViewGallery(
@@ -1641,6 +1660,7 @@ var _selectedItem = '2nd Floor';
   }
 }
 
+//Map page and state
 class MyMapPage extends StatefulWidget {
   MyMapPage({Key key, this.title}) : super(key: key);
 
@@ -1661,6 +1681,7 @@ class MyMapPage extends StatefulWidget {
 
 class _MyMapPageState extends State<MyMapPage> {
 
+  //Important variables used to change content on page and control what happens
   final startLoc = TextEditingController();
   final endLoc = TextEditingController();
   Direct director = new Direct();
@@ -1672,17 +1693,19 @@ class _MyMapPageState extends State<MyMapPage> {
   Text direct = new Text("Directions will be displayed here");
   bool accessIssues = false;
 
-
+  //"Next Step" button if on last direction
   RaisedButton nextDirect = new RaisedButton(
   child: new Text("Next Step"),
   onPressed: null
   );
 
+  //"Prev Step" button if on first direction
   RaisedButton prevDirect = new RaisedButton(
       child: new Text("Prev Step"),
       onPressed: null
   );
 
+  //If "Next Step" pressed, activate "Prev Step" button, and if last direction, deactivate "Next Step" button
   void nextActive(){
     setState(() {
       if(currentDirection == 0){
@@ -1702,6 +1725,8 @@ class _MyMapPageState extends State<MyMapPage> {
       else{
         direct = Text(directions[currentDirection]);
       }
+      //Check for the location of where in the directions the user is told to go to a different floor
+      //If you're currently on that direction, change the map to be on floor where the user will stop
       if(currentDirection == director.vertDirectLoc){
         switch(director.endFloor){
           case 1:
@@ -1722,6 +1747,7 @@ class _MyMapPageState extends State<MyMapPage> {
     });
   }
 
+  //If "Prev Step" pressed, activate "Next Step" button, and if first direction, deactivate "Prev Step" button
   void prevActive(){
     setState(() {
       if(currentDirection == directions.length){
@@ -1730,6 +1756,8 @@ class _MyMapPageState extends State<MyMapPage> {
           onPressed: () {nextActive();}
         );
       }
+      //Check for the location of where in the directions the user is told to go to a different floor
+      //If you're currently on that direction, change the map to be on the user's starting floor
       if(currentDirection == director.vertDirectLoc){
         switch(director.startFloor){
           case 1:
@@ -1802,6 +1830,7 @@ class _MyMapPageState extends State<MyMapPage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            //Map display
             Container(
             child: PhotoViewGallery(
                 pageOptions: <PhotoViewGalleryPageOptions>[
@@ -1820,6 +1849,7 @@ class _MyMapPageState extends State<MyMapPage> {
                     children: <Widget>[
                       new Container(
                         width: 68.0,
+                        //Where the user inputs the starting room number
                         child: new TextField(
                             controller: startLoc,
                             decoration: new InputDecoration(
@@ -1836,6 +1866,7 @@ class _MyMapPageState extends State<MyMapPage> {
                       ),
                       new Container(
                         width: 68.0,
+                        //Where the user inputs the ending room number
                         child: new TextField(
                             controller: endLoc,
                             decoration: new InputDecoration(
@@ -1854,6 +1885,8 @@ class _MyMapPageState extends State<MyMapPage> {
                   ),
                   Spacer(flex: 2),
                   new RaisedButton(
+                      //Button to use the starting and ending room numbers to get directions.  Fails if either field is blank or if either field contains a nonexistent room
+                      //Nonexistent meaning "not a key for the room map"
                       child: new Text("Get Directions"),
                       onPressed: () {
                         currentDirection = 0;
@@ -1910,28 +1943,10 @@ class _MyMapPageState extends State<MyMapPage> {
                             );
                           });
                         }
-//                        switch(yourLoc){
-//                          case "first":
-//                              setState(() {map = AssetImage("images/First.jpg");});
-//                              break;
-//
-//                          case "second":
-//                            setState(() {map = AssetImage("images/Second.jpg");});
-//                            break;
-//
-//                          case "third":
-//                            setState(() {map = AssetImage("images/Third.jpg");});
-//                            break;
-//
-//                          case "fourth":
-//                            setState(() {map = AssetImage("images/Fourth.jpg");});
-//                            break;
-//
-//                          default:
-//                            setState(() {map = AssetImage("images/First.jpg");});
-//                        }
+
                       }),
                   Spacer(flex:3),
+                  //Accessibility issues checkbox
                   Container(
                       width: 10.0,
                       child:  Checkbox(
@@ -1949,6 +1964,7 @@ class _MyMapPageState extends State<MyMapPage> {
             ),
             Spacer(flex: 1),
             new Row(
+              //Box for the directions to be displayed in
             children: <Widget>[
               Spacer(flex: 1),
               new Container(
@@ -1978,15 +1994,6 @@ class _MyMapPageState extends State<MyMapPage> {
             new Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-//                Spacer(flex:1),
-/*                ButtonTheme(
-                  minWidth: 50.0,
-                  height: 22.0,
-                  child: new RaisedButton(
-                      child: new Text("Help"),
-                      onPressed: null
-                  ),
-                ),*/
                 ButtonTheme(
                     minWidth: 70.0,
                     height: 40.0,
@@ -2093,7 +2100,10 @@ class _MyInfoPageState extends State<MyInfoPage> {
                     'There are vending machines on the first floor.\n'
                     'The first digit of the room number is the floor number.\n'
                     'The second digit is which side of Shelby Hall the room is in.\n'
-                    '(1 - Middle | 2 - South side | 3 - West side)\n',
+                    '(1 - Middle | 2 - South side | 3 - West side)\n'
+                    '\n'
+                    '\n'
+                    'The Peanut Room is room 2329\n',
                   style: new TextStyle(
                     fontSize: 14.0,
                   ),
@@ -2196,7 +2206,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
   openConnection() async{
     var connectionSettings = sqlJocky.ConnectionSettings(
       user: "root",
-      password: "BooBooBla2",
+      password: "root",
       host: "10.0.2.2",
       port: 3306,
       db: "peanutroom",
